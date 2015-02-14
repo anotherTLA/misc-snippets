@@ -60,7 +60,7 @@ void destroy(vector * vtr) {
     free(vtr);
 }
 
-size_t resize_vtr(vector * vtr, size_t size) {
+static size_t resize_vtr(vector * vtr, size_t size) {
     if (vtr) {
         int * d = realloc(vtr->data, size * sizeof(int));
         if (d) {
@@ -76,7 +76,7 @@ size_t resize_vtr(vector * vtr, size_t size) {
  * shift array from tail to position, or vice versa.
  * shiftdir indicates direction to shift elements.
  */
-void shift_data(vector * vtr, int pos, int shiftdir) {
+static void shift_data(vector * vtr, int pos, int shiftdir) {
     int i;
     if (shiftdir == RSHIFT) {
         for (i = (vtr->size - 1); i >= pos; i--) {
@@ -94,7 +94,7 @@ void shift_data(vector * vtr, int pos, int shiftdir) {
  * because the memory overlaps, and the latter will clobber
  * things up when it needs to write to the same areas. 
  */
-void shift_data_mm(vector * vtr, int pos, int shiftdir) {
+static void shift_data_mm(vector * vtr, int pos, int shiftdir) {
     /* get the pointer and move it forward by pos */
     int * dp = (vtr->data) + pos;      
     /* compute amount to move */
@@ -121,17 +121,6 @@ void insert(vector * vtr, int elem, int pos) {
     /* insert new element at index pos. */
     shift_data_mm(vtr, pos, RSHIFT);
     vtr->data[pos] = elem;
-}
-
-/* remove element and resize vector */
-void remove_elem(vector * vtr, int elem) {
-    int i;
-    for (i = 0; i < vtr->size; i++) {
-        if (elem == vtr->data[i]) {
-            shift_data_mm(vtr, i, LSHIFT);
-            resize_vtr(vtr, vtr->size - 1);
-        }
-    }    
 }
 
 /* remove element at position given */

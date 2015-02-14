@@ -1,7 +1,11 @@
+/* test.c - demonstrating the vector library functions. This can be compiled
+ * with:
+ *
+ * cc vector.c test.c -o test 
+ */
 #include "vector.h"
 #include <stdio.h>
 
-/* tests for vector. */
 int main (int argc, char ** argv) {
   /* create using "constructors" */
   vector * v1 = create();  
@@ -38,12 +42,6 @@ int main (int argc, char ** argv) {
   remove_at(v1, 1);
   printf("after remove_at(1) v1:\n");
   dump_vtr(v1);
-
-  printf("before remove_elem(2) v2:\n");
-  dump_vtr(v2);
-  remove_elem(v2, 2);
-  printf("after remove_elem(2) v2:\n");
-  dump_vtr(v2);
 
   printf("before replace(1, 4) v2:\n");
   dump_vtr(v2);
