@@ -1,10 +1,8 @@
 #!/usr/bin/env python
-
 """
 An example using Domains to create a two-domain Mininet network, each with its
 own controller.
 """
-
 from domains import Domain
 from mininet.net import Mininet
 from mininet.cli import CLI 
